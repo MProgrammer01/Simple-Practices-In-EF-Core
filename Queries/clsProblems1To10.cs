@@ -1,4 +1,5 @@
 ﻿using EF_Practice_1.Data;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,7 +30,7 @@ namespace EF_Practice_1.Queries
                 .Take(20);
 
 
-            var vehicles = query.ToList();
+            var vehicles = query.AsNoTracking().ToList();
 
             // If no data exists, stop here
             if (vehicles.Count == 0)
