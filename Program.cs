@@ -47,10 +47,11 @@ Console.WriteLine("Problems From 1 To 10");
 
 clsProblems1To10.GetVehiclesBetweenYears(context, 1950, 2000);
 
+clsProblems1To10.GetNumberVehiclesBetweenYears(context, 1950, 2000);
 
 static void PreviewSQLUsingLogin(string SQLString)
 {
-    Console.WriteLine("\nPreview SQL using Login:");
+    Console.WriteLine("Preview SQL using Login:");
     Console.WriteLine("----------------------------------");
     Console.WriteLine(SQLString);
     Console.WriteLine();
