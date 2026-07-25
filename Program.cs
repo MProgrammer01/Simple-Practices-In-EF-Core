@@ -49,9 +49,15 @@ clsProblems1To10.GetVehiclesBetweenYears(context, 1950, 2000);
 
 clsProblems1To10.GetNumberVehiclesBetweenYears(context, 1950, 2000);
 
+clsProblems1To10.GetVehiclesBetweenYearsGroupedByMake(context, 1950, 2000);
+
+clsProblems1To10.GetVehiclesBetweenYearsGroupedByMakeMoreThanNumber(context, 1950, 2000, 12000);
+
+clsProblems1To10.GetVehiclesBetweenYearsGroupedByMakeWithTotalVehicles(context, 1950, 2000);
+
 static void PreviewSQLUsingLogin(string SQLString)
 {
-    Console.WriteLine("Preview SQL using Login:");
+    Console.WriteLine("Preview SQL using Log:");
     Console.WriteLine("----------------------------------");
     Console.WriteLine(SQLString);
     Console.WriteLine();
