@@ -55,6 +55,8 @@ clsProblems1To10.GetVehiclesBetweenYearsGroupedByMakeMoreThanNumber(context, 195
 
 clsProblems1To10.GetVehiclesBetweenYearsGroupedByMakeWithTotalVehicles(context, 1950, 2000);
 
+clsProblems1To10.GetVehiclesBetweenYearsGroupedByMakeWithTotalVehiclesWithPercentage(context, 1950, 2000);
+
 static void PreviewSQLUsingLogin(string SQLString)
 {
     Console.WriteLine("Preview SQL using Log:");
