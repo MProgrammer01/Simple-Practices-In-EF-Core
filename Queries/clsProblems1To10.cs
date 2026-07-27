@@ -153,8 +153,6 @@ namespace EF_Practice_1.Queries
             Console.WriteLine("Problem 5 : Get number of vehicles made between 1950 and 2000 per make and add total vehicles column beside--");
             Console.WriteLine("Solution of Problem 5--");
 
-            int totalVehicule = context.VehicleMasterDetails.Count(v => v.Year >= 1950 && v.Year <= 2000);
-
             var query = context.VehicleMasterDetails
                 .Where(vehicle => vehicle.Year >= 1950 && vehicle.Year <= 2000)
                 .GroupBy(vehicle => vehicle.Make)
@@ -162,7 +160,7 @@ namespace EF_Practice_1.Queries
                 {
                     make = group.Key,
                     numberOfFields = group.Count(),
-                    totalVehicules = totalVehicule
+                    totalVehicules = context.VehicleMasterDetails.Count(v2 => v2.Make == group.Key),
                 })
                 .OrderByDescending(result => result.numberOfFields)
                 .Take(20);
