@@ -318,8 +318,8 @@ namespace EF_Practice_1.Queries
         //Problem 9
         public static void GetTotalMakesRunWithGAS(VehicleMakesDbContext context)
         {
-            Console.WriteLine("Problem 8 : Get Total Makes that runs with GAS\r\n\r\n--");
-            Console.WriteLine("Solution of Problem 8--");
+            Console.WriteLine("Problem 9 : Get Total Makes that runs with GAS\r\n--");
+            Console.WriteLine("Solution of Problem 9--");
 
             var query = context.VehicleMasterDetails
                 .Where(vehilce => vehilce.FuelTypeName == "GAS");
@@ -340,6 +340,44 @@ namespace EF_Practice_1.Queries
             Console.WriteLine("--------------");
 
             Console.WriteLine($"Total Makes : {totalMakes}");
+        }
+
+        //Problem 10
+        public static void GetMakeAndNumberOfVehiclesOrderedDesc(VehicleMakesDbContext context)
+        {
+            Console.WriteLine("Problem 10 : Count Vehicles by make and order them by NumberOfVehicles from high to low.\r\n--");
+            Console.WriteLine("Solution of Problem 10--");
+
+            var query = context.VehicleMasterDetails
+                .GroupBy(group => group.Make)
+                .Select(results => new
+                {
+                    make = results.Key,
+                    numberOfVehicles = results.Count()
+                })
+                .OrderByDescending(selectedResult => selectedResult.numberOfVehicles)
+                .Take(20);
+
+
+
+            var vehicles = query.AsNoTracking().ToList();
+
+            // If no data exists, stop here
+            if (vehicles.Count == 0)
+            {
+                Console.WriteLine("No vehicles found in the database.");
+                Console.WriteLine();
+                return;
+            }
+
+            Console.WriteLine("Makes List:");
+            Console.WriteLine("--------------");
+
+            foreach (var item in vehicles)
+            {
+                Console.WriteLine($"Make: {item.make}," +
+                    $"number of Vehicules : {item.numberOfVehicles}");
+            }
         }
 
 
