@@ -191,8 +191,8 @@ namespace EF_Practice_1.Queries
         //Problem 6
         public static void GetVehiclesBetweenYearsGroupedByMakeWithTotalVehiclesWithPercentage(VehicleMakesDbContext context, int startYear, int endYear)
         {
-            Console.WriteLine("Problem 5 : Get number of vehicles made between 1950 and 2000 per make and add total vehicles column beside--");
-            Console.WriteLine("Solution of Problem 5--");
+            Console.WriteLine("Problem 6 : Get number of vehicles made between 1950 and 2000 per make and add total vehicles column beside--");
+            Console.WriteLine("Solution of Problem 6--");
 
             var query = context.VehicleMasterDetails
                 .Where(vehicle => vehicle.Year >= 1950 && vehicle.Year <= 2000)
@@ -233,6 +233,45 @@ namespace EF_Practice_1.Queries
                     $" Number Of Fields: {item.numberOfVehicleBetweenYears}, " +
                     $"total Vehicules : {item.totalVehiculesPerMake}, " +
                     $"Percentage : {item.Percentage} %");
+            }
+        }
+
+        //Problem 7
+        public static void GetMakeFuelTypeNameNumberOfVehiclesPerMakeAndFuelTypeName(VehicleMakesDbContext context)
+        {
+            Console.WriteLine("Problem 7 : Get Make, FuelTypeName and Number of Vehicles per FuelType per Make\r\n--");
+            Console.WriteLine("Solution of Problem 7--");
+
+            var query = context.VehicleMasterDetails
+                .GroupBy(vehicle => new { vehicle.Make, vehicle.FuelTypeName })
+                .Select(group => new
+                {
+                    make = group.Key.Make,
+                    fuelTypeName = group.Key.FuelTypeName,
+                    numberOfVehicles = group.Count(),
+                })
+                .OrderBy(results => results.make)
+                .Take(20);
+
+
+            var vehicles = query.AsNoTracking().ToList();
+
+            // If no data exists, stop here
+            if (vehicles.Count == 0)
+            {
+                Console.WriteLine("No vehicles found in the database.");
+                Console.WriteLine();
+                return;
+            }
+
+            Console.WriteLine("Makes List:");
+            Console.WriteLine("--------------");
+
+            foreach (var item in vehicles)
+            {
+                Console.WriteLine($"Make: {item.make}," +
+                    $"fuel Type Name: {item.fuelTypeName}, " +
+                    $"number Of Vehicles : {item.numberOfVehicles}");
             }
         }
 
