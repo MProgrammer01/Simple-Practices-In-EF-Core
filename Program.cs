@@ -59,6 +59,8 @@ clsProblems1To10.GetVehiclesBetweenYearsGroupedByMakeWithTotalVehiclesWithPercen
 
 clsProblems1To10.GetMakeFuelTypeNameNumberOfVehiclesPerMakeAndFuelTypeName(context);
 
+clsProblems1To10.GetAllVehiclesRunWithGAS(context);
+
 static void PreviewSQLUsingLogin(string SQLString)
 {
     Console.WriteLine("Preview SQL using Log:");

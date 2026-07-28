@@ -276,5 +276,45 @@ namespace EF_Practice_1.Queries
         }
 
 
+        //Problem 8
+        public static void GetAllVehiclesRunWithGAS(VehicleMakesDbContext context)
+        {
+            Console.WriteLine("Problem 8 : Get all vehicles that runs with GAS\r\n--");
+            Console.WriteLine("Solution of Problem 8--");
+
+            var query = context.VehicleMasterDetails
+                .Where(vehilce => vehilce.FuelTypeName == "GAS")
+                .Select(results => new
+                {
+                    make = results.Make,
+                    modelName = results.ModelName,
+                    fuelTypeName = results.FuelTypeName,
+                })
+                .OrderBy(results => results.make)
+                .Take(20);
+
+
+            var vehicles = query.AsNoTracking().ToList();
+
+            // If no data exists, stop here
+            if (vehicles.Count == 0)
+            {
+                Console.WriteLine("No vehicles found in the database.");
+                Console.WriteLine();
+                return;
+            }
+
+            Console.WriteLine("Makes List:");
+            Console.WriteLine("--------------");
+
+            foreach (var item in vehicles)
+            {
+                Console.WriteLine($"Make: {item.make}," +
+                    $"model Name: {item.modelName}, " +
+                    $"fuel Type Name: {item.fuelTypeName}");
+            }
+        }
+
+
     }
 }
