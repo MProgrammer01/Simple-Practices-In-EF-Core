@@ -61,6 +61,8 @@ clsProblems1To10.GetMakeFuelTypeNameNumberOfVehiclesPerMakeAndFuelTypeName(conte
 
 clsProblems1To10.GetAllVehiclesRunWithGAS(context);
 
+clsProblems1To10.GetTotalMakesRunWithGAS(context);
+
 static void PreviewSQLUsingLogin(string SQLString)
 {
     Console.WriteLine("Preview SQL using Log:");

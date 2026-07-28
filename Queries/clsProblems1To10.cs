@@ -279,7 +279,7 @@ namespace EF_Practice_1.Queries
         //Problem 8
         public static void GetAllVehiclesRunWithGAS(VehicleMakesDbContext context)
         {
-            Console.WriteLine("Problem 8 : Get all vehicles that runs with GAS\r\n--");
+            Console.WriteLine("Problem 8 : Get 20 Make, ModelName and FuelTypeName that runs with GAS\r\n--");
             Console.WriteLine("Solution of Problem 8--");
 
             var query = context.VehicleMasterDetails
@@ -313,6 +313,33 @@ namespace EF_Practice_1.Queries
                     $"model Name: {item.modelName}, " +
                     $"fuel Type Name: {item.fuelTypeName}");
             }
+        }
+
+        //Problem 9
+        public static void GetTotalMakesRunWithGAS(VehicleMakesDbContext context)
+        {
+            Console.WriteLine("Problem 8 : Get Total Makes that runs with GAS\r\n\r\n--");
+            Console.WriteLine("Solution of Problem 8--");
+
+            var query = context.VehicleMasterDetails
+                .Where(vehilce => vehilce.FuelTypeName == "GAS");
+                
+
+
+            int totalMakes = query.AsNoTracking().Count();
+
+            // If no data exists, stop here
+            if (totalMakes == 0)
+            {
+                Console.WriteLine("No vehicles found in the database.");
+                Console.WriteLine();
+                return;
+            }
+
+            Console.WriteLine("Makes List:");
+            Console.WriteLine("--------------");
+
+            Console.WriteLine($"Total Makes : {totalMakes}");
         }
 
 
