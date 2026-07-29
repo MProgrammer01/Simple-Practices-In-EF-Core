@@ -72,7 +72,7 @@ public partial class VehicleMakesDbContext : DbContext
             entity.HasKey(e => e.MakeId);
 
             entity.Property(e => e.MakeId).HasColumnName("MakeID");
-            entity.Property(e => e.Make1)
+            entity.Property(e => e.MakeName)
                 .HasMaxLength(100)
                 .HasColumnName("Make");
         });

@@ -50,5 +50,119 @@ namespace EF_Practice_1.Queries
             }
         }
 
+        //problem 2
+        public static void GetAllMakesStartWithChar(VehicleMakesDbContext context, string character)
+        {
+            Console.WriteLine("Problem 2: Get all Makes with make starts with character\r\n--");
+            Console.WriteLine("Solution of Problem 2--");
+
+
+            var query = context.Makes
+                .Where(make => make.MakeName.StartsWith(character))
+                .Select(result => new
+                {
+                    make = result.MakeName,
+                });
+
+
+            var vehicles = query.AsNoTracking().ToList();
+
+            // If no data exists, stop here
+            if (vehicles.Count == 0)
+            {
+                Console.WriteLine("No vehicles found in the database.");
+                Console.WriteLine();
+                return;
+            }
+
+            Console.WriteLine("Vehicles List:");
+            Console.WriteLine("--------------");
+
+            foreach (var vehicle in vehicles)
+            {
+                Console.WriteLine(
+                    $"Make: {vehicle.make},"
+                );
+            }
+        }
+
+
+        //problem 3
+        public static void GetAllMakesEndWithChar(VehicleMakesDbContext context, string character)
+        {
+            Console.WriteLine("Problem 3: Get all Makes with make ends with character\r\n--");
+            Console.WriteLine("Solution of Problem 3--");
+
+
+            var query = context.Makes
+                .Where(make => make.MakeName.EndsWith(character))
+                .Select(result => new
+                {
+                    make = result.MakeName,
+                });
+
+
+            var vehicles = query.AsNoTracking().ToList();
+
+            // If no data exists, stop here
+            if (vehicles.Count == 0)
+            {
+                Console.WriteLine("No vehicles found in the database.");
+                Console.WriteLine();
+                return;
+            }
+
+            Console.WriteLine("Vehicles List:");
+            Console.WriteLine("--------------");
+
+            foreach (var vehicle in vehicles)
+            {
+                Console.WriteLine(
+                    $"Make: {vehicle.make},"
+                );
+            }
+        }
+
+
+        //problem 4
+        public static void GetAllMakesThatHaveDriveTypeNameIs(VehicleMakesDbContext context, string driveTypeName)
+        {
+            Console.WriteLine("Problem 4: Get all Makes that manufactures DriveTypeName = any type you want (from DB)\r\n--");
+            Console.WriteLine("Solution of Problem 4--");
+
+
+            var query = context.VehicleMasterDetails
+                .Where(vehicle => vehicle.DriveTypeName.Equals(driveTypeName))
+                .Select(result => new
+                {
+                    make = result.Make,
+                    driveTypeName = result.DriveTypeName
+                })
+                .OrderBy(result => result.make)
+                .Take(20);
+
+
+            var vehicles = query.AsNoTracking().ToList();
+
+            // If no data exists, stop here
+            if (vehicles.Count == 0)
+            {
+                Console.WriteLine("No vehicles found in the database.");
+                Console.WriteLine();
+                return;
+            }
+
+            Console.WriteLine("Vehicles List:");
+            Console.WriteLine("--------------");
+
+            foreach (var vehicle in vehicles)
+            {
+                Console.WriteLine(
+                    $"Make: {vehicle.make}," +
+                    $"Drive Type Name: {vehicle.driveTypeName},"
+                );
+            }
+        }
+
     }
 }

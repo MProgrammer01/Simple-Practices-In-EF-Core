@@ -65,9 +65,15 @@ clsProblems1To10.GetTotalMakesRunWithGAS(context);
 
 clsProblems1To10.GetMakeAndNumberOfVehiclesOrderedDesc(context);
 
-Console.WriteLine("Problems From 1 To 10");
+Console.WriteLine("\nProblems From 11 To 20");
 
 clsProblems11To20.GetAllMakesAndCountVehiclesMoreThan(context, 20000);
+
+clsProblems11To20.GetAllMakesStartWithChar(context, "B");
+
+clsProblems11To20.GetAllMakesEndWithChar(context, "W");
+
+clsProblems11To20.GetAllMakesThatHaveDriveTypeNameIs(context, "FWD");
 
 static void PreviewSQLUsingLogin(string SQLString)
 {
