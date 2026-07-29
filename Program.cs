@@ -65,6 +65,10 @@ clsProblems1To10.GetTotalMakesRunWithGAS(context);
 
 clsProblems1To10.GetMakeAndNumberOfVehiclesOrderedDesc(context);
 
+Console.WriteLine("Problems From 1 To 10");
+
+clsProblems11To20.GetAllMakesAndCountVehiclesMoreThan(context, 20000);
+
 static void PreviewSQLUsingLogin(string SQLString)
 {
     Console.WriteLine("Preview SQL using Log:");
