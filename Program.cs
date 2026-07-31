@@ -75,6 +75,10 @@ clsProblems11To20.GetAllMakesEndWithChar(context, "W");
 
 clsProblems11To20.GetAllMakesThatHaveDriveTypeNameIs(context, "FWD");
 
+clsProblems11To20.GetTotalMakesThatHaveDriveTypeNameIs(context, "FWD");
+
+clsProblems11To20.GetTotalVehiclesPerMakeAndDriveTypeName(context);
+
 static void PreviewSQLUsingLogin(string SQLString)
 {
     Console.WriteLine("Preview SQL using Log:");

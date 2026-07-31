@@ -164,5 +164,77 @@ namespace EF_Practice_1.Queries
             }
         }
 
+
+        //problem 5
+        public static void GetTotalMakesThatHaveDriveTypeNameIs(VehicleMakesDbContext context, string driveTypeName)
+        {
+            Console.WriteLine("Problem 5: Get total Makes that Mantufactures DriveTypeName=FWD\r\n\r\n--");
+            Console.WriteLine("Solution of Problem 5--");
+
+
+            var query = context.VehicleMasterDetails
+                .Where(vehicle => vehicle.DriveTypeName.Equals(driveTypeName));
+
+
+            var totalMakes = query.Count();
+
+            // If no data exists, stop here
+            if (totalMakes == 0)
+            {
+                Console.WriteLine("No vehicles found in the database.");
+                Console.WriteLine();
+                return;
+            }
+
+            Console.WriteLine("Vehicles List:");
+            Console.WriteLine("--------------");
+
+            Console.WriteLine(
+                                $"Total Makes: {totalMakes},"
+                            );
+        }
+
+
+        //problem 6
+        public static void GetTotalVehiclesPerMakeAndDriveTypeName(VehicleMakesDbContext context)
+        {
+            Console.WriteLine("Problem 6 : Get total vehicles per DriveTypeName Per Make and order them per make asc then per total Desc--");
+            Console.WriteLine("Solution of Problem 6--");
+
+            var query = context.VehicleMasterDetails
+                .GroupBy(vehicle => new {vehicle.Make, vehicle.DriveTypeName})
+                .Select(group => new
+                {
+                    make = group.Key.Make,
+                    driveTypeName = group.Key.DriveTypeName,
+                    totalVehicles = group.Count()
+
+                })
+                .OrderBy(result => result.make)
+                .ThenByDescending(result => result.totalVehicles)
+                .Take(20);
+
+
+            var vehicles = query.AsNoTracking().ToList();
+
+            // If no data exists, stop here
+            if (vehicles.Count == 0)
+            {
+                Console.WriteLine("No vehicles found in the database.");
+                Console.WriteLine();
+                return;
+            }
+
+            Console.WriteLine("Makes List:");
+            Console.WriteLine("--------------");
+
+            foreach (var item in vehicles)
+            {
+                Console.WriteLine(
+                    $"Make: {item.make}, " +
+                    $"Drive Type Name: {item.driveTypeName}, " +
+                    $"Total Vehicles: {item.totalVehicles}");
+            }
+        }
     }
 }
