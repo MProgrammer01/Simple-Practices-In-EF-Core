@@ -236,5 +236,151 @@ namespace EF_Practice_1.Queries
                     $"Total Vehicles: {item.totalVehicles}");
             }
         }
+
+
+        //problem 7
+        public static void GetTotalVehiclesPerMakeAndDriveTypeNameMoreThan(VehicleMakesDbContext context, int number)
+        {
+            Console.WriteLine("Problem 7 : Get total vehicles per DriveTypeName Per Make then filter only results with total > number--");
+            Console.WriteLine("Solution of Problem 7--");
+
+            var query = context.VehicleMasterDetails
+                .GroupBy(vehicle => new { vehicle.Make, vehicle.DriveTypeName })
+                .Where(group => group.Count() > number)
+                .Select(group => new
+                {
+                    make = group.Key.Make,
+                    driveTypeName = group.Key.DriveTypeName,
+                    totalVehicles = group.Count()
+
+                });
+
+
+            var vehicles = query.AsNoTracking().ToList();
+
+            // If no data exists, stop here
+            if (vehicles.Count == 0)
+            {
+                Console.WriteLine("No vehicles found in the database.");
+                Console.WriteLine();
+                return;
+            }
+
+            Console.WriteLine("Makes List:");
+            Console.WriteLine("--------------");
+
+            foreach (var item in vehicles)
+            {
+                Console.WriteLine(
+                    $"Make: {item.make}, " +
+                    $"Drive Type Name: {item.driveTypeName}, " +
+                    $"Total Vehicles: {item.totalVehicles}");
+            }
+        }
+
+        //problem 8
+        public static void GetVehiclesThatNumberOfDoorsIsNull(VehicleMakesDbContext context)
+        {
+            Console.WriteLine("Problem 8 : Get all Vehicles that number of doors is not specified--");
+            Console.WriteLine("Solution of Problem 8--");
+
+            var query = context.VehicleMasterDetails
+                .Where(vehicle => vehicle.NumDoors == null)
+                .Select(vehicle => new
+                {
+                    make = vehicle.Make,
+                    numDoors = vehicle.NumDoors,
+
+                })
+                .Take(20);
+
+
+            var vehicles = query.AsNoTracking().ToList();
+
+            // If no data exists, stop here
+            if (vehicles.Count == 0)
+            {
+                Console.WriteLine("No vehicles found in the database.");
+                Console.WriteLine();
+                return;
+            }
+
+            Console.WriteLine("Makes List:");
+            Console.WriteLine("--------------");
+
+            foreach (var item in vehicles)
+            {
+                Console.WriteLine(
+                    $"Make: {item.make}, " +
+                    $"Number of Doors: {item.numDoors?.ToString() ?? "null"}");
+            }
+        }
+
+
+        //problem 9
+        public static void GetTotalVehiclesThatNumberOfDoorsIsNull(VehicleMakesDbContext context)
+        {
+            Console.WriteLine("Problem 9 : Get Total Vehicles that number of doors is not specified\r\n--");
+            Console.WriteLine("Solution of Problem 9--");
+
+            var query = context.VehicleMasterDetails
+                .Where(vehicle => vehicle.NumDoors == null)
+                .Select(vehicle => new
+                {
+                    make = vehicle.Make,
+                    numDoors = vehicle.NumDoors,
+
+                });
+
+
+            var vehicles = query.Count();
+
+            // If no data exists, stop here
+            if (vehicles == 0)
+            {
+                Console.WriteLine("No vehicles found in the database.");
+                Console.WriteLine();
+                return;
+            }
+
+            Console.WriteLine("Makes List:");
+            Console.WriteLine("--------------");
+
+            Console.WriteLine($"Total Vehicles: {vehicles}");
+        }
+
+
+        //problem 10
+        public static void GetPercentageVehiclesThatNumberOfDoorsIsNull(VehicleMakesDbContext context)
+        {
+            Console.WriteLine("Problem 10 : Get Percentage of Vehicles that number of doors is not specified\r\n--");
+            Console.WriteLine("Solution of Problem 10--");
+
+            var query = context.VehicleMasterDetails
+                 .GroupBy(v => 1)
+                 .Select(g => new
+                 {
+                     PercentageWithNoSpecifiedDoors = Math.Round(
+                       (double)g.Sum(v => v.NumDoors == null ? 1 : 0) * 100.0 / 
+                       (double)g.Count(),2)
+                 });
+
+
+            var vehicles = query.FirstOrDefault();
+
+            // If no data exists, stop here
+            // If no data exists, stop here
+            if (vehicles == null)
+            {
+                Console.WriteLine("No vehicles found in the database.");
+                Console.WriteLine();
+                return;
+            }
+
+            Console.WriteLine("Makes List:");
+            Console.WriteLine("--------------");
+
+            Console.WriteLine($"Percentage With No Specified Doors: {vehicles.PercentageWithNoSpecifiedDoors}%");
+        }
     }
 }

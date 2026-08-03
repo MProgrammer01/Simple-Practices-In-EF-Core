@@ -79,6 +79,14 @@ clsProblems11To20.GetTotalMakesThatHaveDriveTypeNameIs(context, "FWD");
 
 clsProblems11To20.GetTotalVehiclesPerMakeAndDriveTypeName(context);
 
+clsProblems11To20.GetTotalVehiclesPerMakeAndDriveTypeNameMoreThan(context, 10000);
+
+clsProblems11To20.GetVehiclesThatNumberOfDoorsIsNull(context);
+
+clsProblems11To20.GetTotalVehiclesThatNumberOfDoorsIsNull(context);
+
+clsProblems11To20.GetPercentageVehiclesThatNumberOfDoorsIsNull(context);
+
 static void PreviewSQLUsingLogin(string SQLString)
 {
     Console.WriteLine("Preview SQL using Log:");
