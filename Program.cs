@@ -87,6 +87,10 @@ clsProblems11To20.GetTotalVehiclesThatNumberOfDoorsIsNull(context);
 
 clsProblems11To20.GetPercentageVehiclesThatNumberOfDoorsIsNull(context);
 
+Console.WriteLine("\nProblems From 21 To 30");
+
+clsProblems21To30.GetVehiclesThatHaveSubModelName(context, "Elite");
+
 static void PreviewSQLUsingLogin(string SQLString)
 {
     Console.WriteLine("Preview SQL using Log:");
