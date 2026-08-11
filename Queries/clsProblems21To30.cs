@@ -67,7 +67,7 @@ namespace EF_Practice_1.Queries
             Console.WriteLine("Solution of Problem 2--");
 
             var query = context.VehicleDetails
-                .Where(vehicle => vehicle.EngineLiterDisplay > engine && vehicle.NumDoors > doors )
+                .Where(vehicle => vehicle.EngineLiterDisplay > engine && vehicle.NumDoors > doors)
                 .Select(results => new
                 {
                     name = results.VehicleDisplayName,
@@ -102,7 +102,7 @@ namespace EF_Practice_1.Queries
         //Problem 3
         public static void GetMakeAndVehiclesThatHaveEnginesContainAndHaveCylindersNumber(VehicleMakesDbContext context, string engineLetter, int numberCylinder)
         {
-            Console.WriteLine("Problem 3 : Get make and vehicles that the engine contains 'letter' and have Cylinders = 'number'\r\n\r\n--");
+            Console.WriteLine("Problem 3 : Get make and vehicles that the engine contains 'engineLetter' and have Cylinders = 'number'\r\n\r\n--");
             Console.WriteLine("Solution of Problem 3--");
 
             var query = context.VehicleDetails
@@ -142,5 +142,166 @@ namespace EF_Practice_1.Queries
                  );
             }
         }
+
+
+        //Problem 4
+        public static void GetAllVehiclesThatTheirBodyIsAndYearMoreThan(VehicleMakesDbContext context, string body, int year)
+        {
+            Console.WriteLine("Problem 4 : Get all vehicles that their body is 'Sport Utility' and Year > 2020\r\n\r\n--");
+            Console.WriteLine("Solution of Problem 4--");
+
+            var query = context.VehicleDetails
+                .Join(context.Bodies,
+                    vehicleDetails => vehicleDetails.BodyId,
+                    body => body.BodyId,
+                    (vehicleDetails, bodies) => new {
+                        bodies.BodyName,
+                        vehicleDetails.VehicleDisplayName,
+                        vehicleDetails.Year,
+                    })
+                .Where(vehicle => vehicle.BodyName.Equals(body) && vehicle.Year > year)
+                .Take(20);
+
+
+            var vehicles = query.AsNoTracking().ToList();
+
+            // If no data exists, stop here
+            if (vehicles.Count == 0)
+            {
+                Console.WriteLine("No vehicles found in the database.");
+                Console.WriteLine();
+                return;
+            }
+
+            Console.WriteLine("Makes List:");
+            Console.WriteLine("--------------");
+
+            foreach (var item in vehicles)
+            {
+                Console.WriteLine(
+                    $"Vehicle Display Name: {item.VehicleDisplayName}," +
+                    $"Body: {item.BodyName}, " +
+                    $"Year: {item.Year}, "
+                 );
+            }
+        }
+
+
+        //Problem 5
+        public static void GetAllVehiclesThatTheirBodyIn(VehicleMakesDbContext context, string[] bodies)
+        {
+            Console.WriteLine("Problem 5 : Get all vehicles that their Body is 'choice1' or 'choice2' or 'choice3'\r\n\r\n\r\n--");
+            Console.WriteLine("Solution of Problem 5--");
+
+            var query = context.VehicleDetails
+                .Join(context.Bodies,
+                    vehicleDetails => vehicleDetails.BodyId,
+                    body => body.BodyId,
+                    (vehicleDetails, bodies) => new {
+                        bodies.BodyName,
+                        vehicleDetails.VehicleDisplayName,
+                    })
+                .Where(vehicle => bodies.Contains(vehicle.BodyName))
+                .Take(20);
+
+
+            var vehicles = query.AsNoTracking().ToList();
+
+            // If no data exists, stop here
+            if (vehicles.Count == 0)
+            {
+                Console.WriteLine("No vehicles found in the database.");
+                Console.WriteLine();
+                return;
+            }
+
+            Console.WriteLine("Makes List:");
+            Console.WriteLine("--------------");
+
+            foreach (var item in vehicles)
+            {
+                Console.WriteLine(
+                    $"Vehicle Display Name: {item.VehicleDisplayName}," +
+                    $"Body: {item.BodyName}, "
+                 );
+            }
+        }
+
+
+        //Problem 6
+        public static void GetAllVehiclesThatTheirBodyInAndYearIn(VehicleMakesDbContext context, string[] bodies, short[] years)
+        {
+            Console.WriteLine("Problem 6 : Get all vehicles that their body is 'choice1' or 'choice2' or 'choice3' and manufactured in year 'choice1' or 'choice2' or 'choice3'\r\n\r\n\r\n--");
+            Console.WriteLine("Solution of Problem 6--");
+
+            var query = context.VehicleDetails
+                .Join(context.Bodies,
+                    vehicleDetails => vehicleDetails.BodyId,
+                    body => body.BodyId,
+                    (vehicleDetails, body) => new
+                    {
+                        body.BodyName,
+                        vehicleDetails.VehicleDisplayName,
+                        vehicleDetails.Year,
+                    })
+                .Where(vehicle =>
+                    bodies.Contains(vehicle.BodyName) &&
+                    vehicle.Year.HasValue &&
+                    years.Contains(vehicle.Year.Value))
+                .Take(20);
+
+
+            var vehicles = query.AsNoTracking().ToList();
+
+            // If no data exists, stop here
+            if (vehicles.Count == 0)
+            {
+                Console.WriteLine("No vehicles found in the database.");
+                Console.WriteLine();
+                return;
+            }
+
+            Console.WriteLine("Makes List:");
+            Console.WriteLine("--------------");
+
+            foreach (var item in vehicles)
+            {
+                Console.WriteLine(
+                    $"Vehicle Display Name: {item.VehicleDisplayName}," +
+                    $"Body: {item.BodyName}, " +
+                    $"Year: {item.Year}, "
+                 );
+            }
+        }
+
+        
+        //Problem 7
+        public static void ReturnAnyVehicleMadeInYear(VehicleMakesDbContext context, short year)
+        {
+            Console.WriteLine("Problem 7 : Return found=1 if there is any vehicle made in year 'value'\r\n\r\n\r\n--");
+            Console.WriteLine("Solution of Problem 7--");
+
+            var query = context.VehicleDetails
+                .Where(vehicle => vehicle.Year == year);
+
+
+            var isFound = query.Any();
+
+            // If no data exists, stop here
+            if (!isFound)
+            {
+                Console.WriteLine("No vehicles found in the database.");
+                Console.WriteLine();
+                return;
+            }
+
+            Console.WriteLine("Makes List:");
+            Console.WriteLine("--------------");
+
+            Console.WriteLine(
+                    $"Vehicles In {year} is Found: {isFound}"
+                 );
+        }
+
     }
 }

@@ -95,6 +95,14 @@ clsProblems21To30.GetAllVehiclesThatHaveEnginesAndDoorsMoreThan(context, 3, 2);
 
 clsProblems21To30.GetMakeAndVehiclesThatHaveEnginesContainAndHaveCylindersNumber(context, "OHV", 4);
 
+clsProblems21To30.GetAllVehiclesThatTheirBodyIsAndYearMoreThan(context, "Sport Utility", 2020);
+
+clsProblems21To30.GetAllVehiclesThatTheirBodyIn(context, ["Coupe", "Hatchback", "Sedan"]);
+
+clsProblems21To30.GetAllVehiclesThatTheirBodyInAndYearIn(context, ["Coupe", "Hatchback", "Sedan"], [2008, 2020, 2021]);
+
+clsProblems21To30.ReturnAnyVehicleMadeInYear(context, 1950);
+
 static void PreviewSQLUsingLogin(string SQLString)
 {
     Console.WriteLine("Preview SQL using Log:");
