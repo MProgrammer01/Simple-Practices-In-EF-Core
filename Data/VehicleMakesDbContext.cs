@@ -116,9 +116,8 @@ public partial class VehicleMakesDbContext : DbContext
             entity.Property(e => e.Engine).HasMaxLength(100);
             entity.Property(e => e.EngineCc).HasColumnName("Engine_CC");
             entity.Property(e => e.EngineCylinders).HasColumnName("Engine_Cylinders");
-            entity.Property(e => e.EngineLiterDisplay)
-                .HasColumnType("money")
-                .HasColumnName("Engine_Liter_Display");
+            entity.Property(e => e.Year).HasColumnType("smallint").HasColumnName("Year");
+            entity.Property(e => e.EngineLiterDisplay).HasColumnType("money").HasColumnName("Engine_Liter_Display");
             entity.Property(e => e.FuelTypeId).HasColumnName("FuelTypeID");
             entity.Property(e => e.MakeId).HasColumnName("MakeID");
             entity.Property(e => e.ModelId).HasColumnName("ModelID");

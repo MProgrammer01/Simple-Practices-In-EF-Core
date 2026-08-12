@@ -103,6 +103,10 @@ clsProblems21To30.GetAllVehiclesThatTheirBodyInAndYearIn(context, ["Coupe", "Hat
 
 clsProblems21To30.ReturnAnyVehicleMadeInYear(context, 1950);
 
+clsProblems21To30.GetAllVehiclesAndDisplayNumberOfDoorsByWords(context);
+
+clsProblems21To30.GetAllVehiclesAndDisplayAgeOfTheCarbetween(context, 15, 25);
+
 static void PreviewSQLUsingLogin(string SQLString)
 {
     Console.WriteLine("Preview SQL using Log:");

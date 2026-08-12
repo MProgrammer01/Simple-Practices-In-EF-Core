@@ -229,7 +229,7 @@ namespace EF_Practice_1.Queries
 
 
         //Problem 6
-        public static void GetAllVehiclesThatTheirBodyInAndYearIn(VehicleMakesDbContext context, string[] bodies, short[] years)
+        public static void GetAllVehiclesThatTheirBodyInAndYearIn(VehicleMakesDbContext context, string[] bodies, int[] years)
         {
             Console.WriteLine("Problem 6 : Get all vehicles that their body is 'choice1' or 'choice2' or 'choice3' and manufactured in year 'choice1' or 'choice2' or 'choice3'\r\n\r\n\r\n--");
             Console.WriteLine("Solution of Problem 6--");
@@ -301,6 +301,144 @@ namespace EF_Practice_1.Queries
             Console.WriteLine(
                     $"Vehicles In {year} is Found: {isFound}"
                  );
+        }
+
+
+        //Problem 8
+        public static void GetAllVehiclesAndDisplayNumberOfDoorsByWords(VehicleMakesDbContext context)
+        {
+            Console.WriteLine("Problem 8 : Get all Vehicle_Display_Name, NumDoors and add extra column to describe number of doors by words, and if door is null display 'Not Set'\r\n\r\n\r\n--");
+            Console.WriteLine("Solution of Problem 8--");
+
+            var query = context.VehicleDetails
+                .Select(vehicle => new
+                {
+                    vehicle.VehicleDisplayName,
+                    vehicle.NumDoors,
+
+                    DescribeNumber = vehicle.NumDoors == null ? "not set" :
+                       vehicle.NumDoors == 0 ? "zero doors" :
+                       vehicle.NumDoors == 1 ? "one doors" :
+                       vehicle.NumDoors == 2 ? "two doors" :
+                       vehicle.NumDoors == 3 ? "tree doors" :
+                       vehicle.NumDoors == 4 ? "four doors" :
+                       vehicle.NumDoors == 5 ? "five doors" :
+                       vehicle.NumDoors == 6 ? "six doors" :
+                       vehicle.NumDoors == 8 ? "eight doors" :
+                       "unknown"
+                })
+                .Take(20);
+
+
+            var vehicles = query.AsNoTracking().ToList();
+
+            // If no data exists, stop here
+            if (vehicles.Count == 0)
+            {
+                Console.WriteLine("No vehicles found in the database.");
+                Console.WriteLine();
+                return;
+            }
+
+            Console.WriteLine("Makes List:");
+            Console.WriteLine("--------------");
+
+            foreach (var item in vehicles)
+            {
+                Console.WriteLine(
+                    $"Vehicle Display Name: {item.VehicleDisplayName}," +
+                    $"NumDoors: {item.NumDoors}, " +
+                    $"Describe_Number: {item.DescribeNumber}, "
+                 );
+            }
+        }
+
+
+        //Problem 9
+        public static void GetAllVehiclesAndDisplayAgeOfTheCar(VehicleMakesDbContext context)
+        {
+            Console.WriteLine("Problem 9 : Get all Vehicle_Display_Name, year and add extra column to calcuate the age of the car then sort the results by age desc.\r\n\r\n\r\n--");
+            Console.WriteLine("Solution of Problem 9--");
+
+            var query = context.VehicleDetails
+                .Select(vehicle => new
+                {
+                    vehicle.VehicleDisplayName,
+                    vehicle.Year,
+
+                    ageOfCar = DateTime.Now.Year - vehicle.Year,
+                })
+                .OrderByDescending(results => results.ageOfCar)
+                .Take(20);
+
+
+            var vehicles = query.AsNoTracking().ToList();
+
+            // If no data exists, stop here
+            if (vehicles.Count == 0)
+            {
+                Console.WriteLine("No vehicles found in the database.");
+                Console.WriteLine();
+                return;
+            }
+
+            Console.WriteLine("Makes List:");
+            Console.WriteLine("--------------");
+
+            foreach (var item in vehicles)
+            {
+                Console.WriteLine(
+                    $"Vehicle Display Name: {item.VehicleDisplayName}," +
+                    $"NumDoors: {item.Year}, " +
+                    $"Describe_Number: {item.ageOfCar}, "
+                 );
+            }
+        }
+
+        //Problem 10
+        public static void GetAllVehiclesAndDisplayAgeOfTheCarbetween(VehicleMakesDbContext context, int start, int end)
+        {
+            Console.WriteLine("Problem 10 : Get all Vehicle_Display_Name, year, Age for vehicles that their age between 15 and 25 years old.\r\n\r\n\r\n--");
+            Console.WriteLine("Solution of Problem 10--");
+
+            int currentYear = DateTime.Now.Year;
+
+            int minYear = currentYear - end;
+            int maxYear = currentYear - start;
+
+            var query = context.VehicleDetails
+                .Where(vehicle => vehicle.Year >= minYear && vehicle.Year <= maxYear)
+                .Select(vehicle => new
+                {
+                    vehicle.VehicleDisplayName,
+                    vehicle.Year,
+                    ageOfCar = currentYear - vehicle.Year
+                })
+                .OrderByDescending(results => results.ageOfCar)
+                .Take(20);
+
+
+            var vehicles = query.AsNoTracking().ToList();
+
+            // If no data exists, stop here
+            if (vehicles.Count == 0)
+            {
+                Console.WriteLine("No vehicles found in the database.");
+                Console.WriteLine();
+                return;
+            }
+
+            Console.WriteLine("Makes List:");
+            Console.WriteLine("--------------");
+
+            foreach (var item in vehicles)
+            {
+                Console.WriteLine(
+                    $"Vehicle Display Name: {item.VehicleDisplayName}, " +
+                    $"Year: {item.Year}, " +
+                    $"Age: {item.ageOfCar}"
+                );
+            }
         }
 
     }
