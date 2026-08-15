@@ -107,6 +107,28 @@ clsProblems21To30.GetAllVehiclesAndDisplayNumberOfDoorsByWords(context);
 
 clsProblems21To30.GetAllVehiclesAndDisplayAgeOfTheCarbetween(context, 15, 25);
 
+Console.WriteLine("\nProblems From 31 To 40");
+
+clsProblems31To40.GetMinMaxAvgOfEngineCc(context);
+
+clsProblems31To40.GetAllVehiclesThatHaveMinimumEngineCC(context);
+
+clsProblems31To40.GetAllVehiclesThatHaveMaximumEngineCC(context);
+
+clsProblems31To40.GetAllVehiclesThatHaveEngineCCBelowAverage(context);
+
+clsProblems31To40.GetTotalVehiclesThatHaveEngineCCAboveAverage(context);
+
+clsProblems31To40.GetAllUniqueEnginCCAndSortThemDesc(context);
+
+clsProblems31To40.GetTheMaximumEngineCCByNumber(context, 3);
+
+clsProblems31To40.GetAllVehiclesHasOneOfTheMaxNumberEnginCC(context, 3);
+
+clsProblems31To40.GetAllMakesThatManufacturesHasOneOfTheMaxNumberEnginCC(context, 3);
+
+clsProblems31To40.GetATableOfUniqueEngineCCAndCalculateTaxPerEngineCC(context);
+
 static void PreviewSQLUsingLogin(string SQLString)
 {
     Console.WriteLine("Preview SQL using Log:");
