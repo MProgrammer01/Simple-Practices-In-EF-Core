@@ -129,6 +129,24 @@ clsProblems31To40.GetAllMakesThatManufacturesHasOneOfTheMaxNumberEnginCC(context
 
 clsProblems31To40.GetATableOfUniqueEngineCCAndCalculateTaxPerEngineCC(context);
 
+Console.WriteLine("\nProblems From 41 To 48");
+
+clsProblems41To48.GetMakeAndTotalDoorsPerMake(context);
+
+clsProblems41To48.GetMakeAndTotalDoorsPerMake(context, "Ford");
+
+clsProblems41To48.GetNumberOfModelsPerMake(context);
+
+clsProblems41To48.GetHighestManufacturersMakeHighestNumberOfModels(context);
+
+clsProblems41To48.GetTheHighestNumberOfModelsManufactured(context);
+
+clsProblems41To48.GetTheHighestManufacturersManufacturedHighestModelsNumber(context);
+
+clsProblems41To48.GetTheLowestManufacturersManufacturedLowestModelsNumber(context);
+
+clsProblems41To48.GetAllFuelTypesResultShowedInRandomOrder(context);
+
 static void PreviewSQLUsingLogin(string SQLString)
 {
     Console.WriteLine("Preview SQL using Log:");
