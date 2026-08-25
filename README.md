@@ -40,7 +40,7 @@ Simple-Practices-In-EF-Core/
 ## 📄 الرخصة
 
 <div align="center">
-  <p>هذا المشروع مفتوح المصدر ومتوفر تحت رخصة <strong>MIT</strong>.</p>
+  <p>هذا المشروع مفتوح المصدر ومتوفر تحت رخصة <strong>Apache License 2.0</strong>.</p>
 </div>
 
 ---
